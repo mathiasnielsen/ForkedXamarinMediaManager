@@ -4,7 +4,7 @@ namespace MediaManager
 {
     public class Logger
     {
-        private const string LoggingPrefix = "MKN";
+        private const string LoggingPrefix = "MKN (v.1.0)";
 
         private readonly string _owner;
 
@@ -14,6 +14,8 @@ namespace MediaManager
         }
 
         public static event EventHandler<Log> DidWriteLog;
+
+        public static bool IsTurnedOn { get; set; } = true;
 
         public void Debug(string message)
         {
@@ -36,7 +38,11 @@ namespace MediaManager
             var log = new Log(logType, logText);
 
             DidWriteLog?.Invoke(null, log);
-            Console.WriteLine(logText);
+
+            if (IsTurnedOn)
+            {
+                Console.WriteLine(logText);
+            }
         }
     }
 }

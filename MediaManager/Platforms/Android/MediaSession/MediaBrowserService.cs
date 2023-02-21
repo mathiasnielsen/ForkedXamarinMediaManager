@@ -17,6 +17,8 @@ namespace MediaManager.Platforms.Android.MediaSession
     [IntentFilter(new[] { global::Android.Service.Media.MediaBrowserService.ServiceInterface })]
     public class MediaBrowserService : MediaBrowserServiceCompat
     {
+        private readonly Logger _logger = new Logger(nameof(MediaBrowserService));
+
         protected MediaManagerImplementation MediaManager => CrossMediaManager.Android;
         protected MediaDescriptionAdapter MediaDescriptionAdapter { get; set; }
         protected PlayerNotificationManager PlayerNotificationManager
@@ -162,7 +164,7 @@ namespace MediaManager.Platforms.Android.MediaSession
         {
             //ServiceCompat.StopForeground(this, ServiceCompat.StopForegroundDetach);
 
-            System.Console.WriteLine("Destroying MediaBrowserService");
+            _logger.Info("Destroying MediaBrowserService");
             StopForeground(true);
 
             if (MediaManager != null)
