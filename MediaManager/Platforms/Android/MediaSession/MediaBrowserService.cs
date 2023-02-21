@@ -17,7 +17,7 @@ namespace MediaManager.Platforms.Android.MediaSession
     [IntentFilter(new[] { global::Android.Service.Media.MediaBrowserService.ServiceInterface })]
     public class MediaBrowserService : MediaBrowserServiceCompat
     {
-        private readonly Logger _logger = new Logger(nameof(MediaBrowserService));
+        private readonly MediaManagerLogger _logger = new MediaManagerLogger(nameof(MediaBrowserService));
 
         protected MediaManagerImplementation MediaManager => CrossMediaManager.Android;
         protected MediaDescriptionAdapter MediaDescriptionAdapter { get; set; }

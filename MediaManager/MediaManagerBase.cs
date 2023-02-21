@@ -18,7 +18,7 @@ namespace MediaManager
 {
     public abstract class MediaManagerBase : NotifyPropertyChangedBase, IMediaManager
     {
-        private readonly Logger _logger = new Logger(nameof(MediaManagerBase));
+        private readonly MediaManagerLogger _logger = new MediaManagerLogger(nameof(MediaManagerBase));
 
         public MediaManagerBase()
         {
@@ -223,13 +223,13 @@ namespace MediaManager
 
         public virtual async Task<IMediaItem> Play(string uri)
         {
-            _logger.Debug($"Started playing: {uri}");
+            _logger.Debug($"Start playing: {uri}");
             var mediaItem = await Extractor.CreateMediaItem(uri).ConfigureAwait(false);
             var mediaItemToPlay = await PrepareQueueForPlayback(mediaItem);
 
-            _logger.Debug($"Started playing as current: {uri}");
+            _logger.Debug($"Start PlayAsCurrent: {uri}");
             await PlayAsCurrent(mediaItemToPlay);
-            _logger.Debug($"Did play as current: {uri}");
+            _logger.Debug($"Did PlayAsCurrent: {uri}");
             return mediaItem;
         }
 

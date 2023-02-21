@@ -10,7 +10,7 @@ namespace MediaManager.Platforms.Android.MediaSession
 {
     public class MediaBrowserManager
     {
-        private readonly Logger _logger = new Logger(nameof(MediaBrowserManager));
+        private readonly MediaManagerLogger _logger = new MediaManagerLogger(nameof(MediaBrowserManager));
 
         private TaskCompletionSource<bool> _tcs;
 

@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace MediaManager
 {
-    public class Logger
+    public class MediaManagerLogger
     {
         private const string LoggingPrefix = "MKN (v.1.0)";
 
         private readonly string _owner;
 
-        public Logger(string owner)
+        public MediaManagerLogger(string owner)
         {
             _owner = owner;
         }
@@ -41,7 +42,7 @@ namespace MediaManager
 
             if (IsTurnedOn)
             {
-                Console.WriteLine(logText);
+                Trace.WriteLine(logText);
             }
         }
     }

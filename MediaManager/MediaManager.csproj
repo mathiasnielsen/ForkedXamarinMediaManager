@@ -99,7 +99,7 @@
     <Folder Include="Logging\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Logging\Logger.cs">
+    <Compile Update="Logging\MediaManagerLogger.cs">
       <SubType></SubType>
     </Compile>
     <Compile Update="Logging\Log.cs">

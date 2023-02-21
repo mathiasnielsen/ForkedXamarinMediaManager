@@ -28,7 +28,7 @@ namespace MediaManager
     [global::Android.Runtime.Preserve(AllMembers = true)]
     public class MediaManagerImplementation : MediaManagerBase, IMediaManager<SimpleExoPlayer>
     {
-        private readonly Logger _logger = new Logger(nameof(MediaManagerImplementation));
+        private readonly MediaManagerLogger _logger = new MediaManagerLogger(nameof(MediaManagerImplementation));
 
         public MediaManagerImplementation()
         {
@@ -246,6 +246,7 @@ namespace MediaManager
 
         public override async Task PlayAsCurrent(IMediaItem mediaItem)
         {
+            _logger.Debug($"ANDROID PlayAsCurrent by EnsureInit and MediaController");
             await EnsureInit();
             MediaController.GetTransportControls().Prepare();
         }
