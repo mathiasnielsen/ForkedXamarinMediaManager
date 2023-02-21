@@ -19,6 +19,9 @@
   <Import Project="$(SolutionDir)netcore.targets" Condition=" $(TargetFramework.StartsWith('netcoreapp3.1'))" />
 
   <ItemGroup>
+    <None Remove="Logging\" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Remove="Platforms\**\*.cs" />
     <None Include="Platforms\**\*.cs" />
     <None Include="Resources\*.cs" />
@@ -91,5 +94,16 @@
   <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
     <None Remove="Platforms\Tizen\**\*.cs" />
     <Compile Include="Platforms\Tizen\**\*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Logging\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Logging\Logger.cs">
+      <SubType></SubType>
+    </Compile>
+    <Compile Update="Logging\Log.cs">
+      <SubType></SubType>
+    </Compile>
   </ItemGroup>
 </Project>

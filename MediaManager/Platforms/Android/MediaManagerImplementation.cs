@@ -28,6 +28,8 @@ namespace MediaManager
     [global::Android.Runtime.Preserve(AllMembers = true)]
     public class MediaManagerImplementation : MediaManagerBase, IMediaManager<SimpleExoPlayer>
     {
+        private readonly Logger _logger = new Logger(nameof(MediaManagerImplementation));
+
         public MediaManagerImplementation()
         {
             IsInitialized = false;
@@ -113,16 +115,25 @@ namespace MediaManager
 
         public override void Init()
         {
+            _logger.Debug("INIT without await");
             EnsureInit();
             InitTimer();
         }
 
         public async Task EnsureInit()
         {
+            _logger.Debug("INIT started");
             IsInitialized = await MediaBrowserManager.Init();
 
             if (!IsInitialized)
+            {
+                _logger.Warning("INIT failed");
                 throw new Exception("Cannot Initialize MediaManager");
+            }
+            else
+            {
+                _logger.Debug("INIT finished");
+            }
         }
 
         private MediaBrowserManager _mediaBrowserManager;
@@ -247,11 +258,17 @@ namespace MediaManager
 
         public override async Task Play()
         {
+            _logger.Debug("PLAY ensure init");
             await EnsureInit();
 
+            _logger.Debug("PLAY after init");
             if (this.IsStopped())
+            {
+                _logger.Debug("PLAY prepare if stopped");
                 MediaController.GetTransportControls().Prepare();
+            }
 
+            _logger.Debug("PLAY");
             MediaController.GetTransportControls().Play();
         }
 
