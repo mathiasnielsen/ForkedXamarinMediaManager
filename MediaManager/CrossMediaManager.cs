@@ -36,12 +36,6 @@ namespace MediaManager
         public static MediaManagerImplementation Android => (MediaManagerImplementation)Current;
 #elif APPLE
         public static MediaManagerImplementation Apple => (MediaManagerImplementation)Current;
-#elif UWP
-        public static MediaManagerImplementation Windows => (MediaManagerImplementation)Current;
-#elif TIZEN
-        public static MediaManagerImplementation Tizen => (MediaManagerImplementation)Current;
-#elif WPF
-        public static MediaManagerImplementation Wpf => (MediaManagerImplementation)Current;
 #endif
 
         private static IMediaManager CreateMediaManager()
