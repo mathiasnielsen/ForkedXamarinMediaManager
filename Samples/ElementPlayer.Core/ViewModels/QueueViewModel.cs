@@ -1,4 +1,5 @@
-﻿using MvvmCross.Navigation;
+﻿using MvvmCross.Logging;
+using MvvmCross.Navigation;
 
 namespace ElementPlayer.Core.ViewModels
 {

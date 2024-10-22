@@ -1,4 +1,5 @@
-﻿namespace MediaManager.AzureMediaServices
+﻿using System;
+namespace MediaManager.AzureMediaServices
 {
     public class InvalidAzureMediaServiceUriException : Exception
     {

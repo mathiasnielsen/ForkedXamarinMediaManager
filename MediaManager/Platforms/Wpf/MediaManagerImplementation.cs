@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows.Controls;
 using MediaManager.Media;
 using MediaManager.Notifications;

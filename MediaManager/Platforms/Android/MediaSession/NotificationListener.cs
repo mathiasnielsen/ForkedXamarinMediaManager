@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Runtime;
 using Com.Google.Android.Exoplayer2.UI;
 

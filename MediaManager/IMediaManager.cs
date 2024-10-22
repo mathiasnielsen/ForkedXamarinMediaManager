@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using MediaManager.Library;
 using MediaManager.Media;
 using MediaManager.Notifications;
@@ -98,7 +101,7 @@ namespace MediaManager
         /// <param name="cacheName"></param>
         /// <returns></returns>
         Task<IMediaItem> Play(Stream stream, string cacheName);
-
+        
         /// <summary>
         /// Plays media from a Stream.
         /// </summary>

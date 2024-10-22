@@ -1,4 +1,5 @@
-﻿using MediaManager.Notifications;
+﻿using System;
+using MediaManager.Notifications;
 using MediaPlayer;
 
 namespace MediaManager.Platforms.Apple.Notifications

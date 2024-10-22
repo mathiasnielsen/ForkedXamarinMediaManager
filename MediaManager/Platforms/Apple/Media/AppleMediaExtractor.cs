@@ -1,4 +1,7 @@
-﻿using Foundation;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using Foundation;
 using MediaManager.Media;
 
 namespace MediaManager.Platforms.Apple.Media

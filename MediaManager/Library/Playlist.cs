@@ -1,4 +1,8 @@
-﻿namespace MediaManager.Library
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MediaManager.Library
 {
     public class Playlist : ContentItem, IPlaylist
     {

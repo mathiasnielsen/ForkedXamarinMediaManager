@@ -1,4 +1,6 @@
-﻿using Android.OS;
+﻿using System;
+using System.Collections.Generic;
+using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.Media;
 

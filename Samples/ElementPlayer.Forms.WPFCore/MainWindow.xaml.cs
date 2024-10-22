@@ -1,4 +1,5 @@
-﻿using MvvmCross.Forms.Platforms.Wpf.Views;
+﻿using MediaManager;
+using MvvmCross.Forms.Platforms.Wpf.Views;
 
 namespace ElementPlayer.Forms.WPFCore
 {

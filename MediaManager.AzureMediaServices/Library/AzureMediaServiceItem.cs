@@ -1,4 +1,5 @@
-﻿using MediaManager.Library;
+﻿using System;
+using MediaManager.Library;
 
 namespace MediaManager.AzureMediaServices.Library
 {

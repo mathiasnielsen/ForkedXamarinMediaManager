@@ -1,4 +1,5 @@
-﻿using AVFoundation;
+﻿using System;
+using AVFoundation;
 using MediaManager.Media;
 using MediaManager.Notifications;
 using MediaManager.Platforms.Apple.Media;

@@ -1,4 +1,5 @@
-﻿using Android.Support.V4.Media.Session;
+﻿using System;
+using Android.Support.V4.Media.Session;
 using MediaManager.Player;
 
 namespace MediaManager.Platforms.Android.Playback

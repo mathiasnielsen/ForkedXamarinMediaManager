@@ -1,4 +1,7 @@
-﻿namespace MediaManager.Library
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace MediaManager.Library
 {
     public class Artist : ContentItem, IArtist
     {

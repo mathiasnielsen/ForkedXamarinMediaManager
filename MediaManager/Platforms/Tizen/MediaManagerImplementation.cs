@@ -1,4 +1,5 @@
-﻿using MediaManager.Media;
+﻿using System;
+using MediaManager.Media;
 using MediaManager.Notifications;
 using MediaManager.Platforms.Tizen.Media;
 using MediaManager.Platforms.Tizen.Player;

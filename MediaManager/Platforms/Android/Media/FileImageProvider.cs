@@ -1,4 +1,6 @@
-﻿using Android.Graphics;
+﻿using System;
+using System.Threading.Tasks;
+using Android.Graphics;
 using MediaManager.Library;
 using MediaManager.Media;
 

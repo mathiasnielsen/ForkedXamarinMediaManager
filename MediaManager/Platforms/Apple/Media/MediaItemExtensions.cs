@@ -1,4 +1,6 @@
-﻿using AVFoundation;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AVFoundation;
 using CoreFoundation;
 using Foundation;
 using MediaManager.Library;

@@ -1,4 +1,5 @@
-﻿using MediaManager.Media;
+﻿using System.Threading.Tasks;
+using MediaManager.Media;
 
 namespace MediaManager.Platforms.Wpf.Media
 {

@@ -1,4 +1,5 @@
-﻿using Android.Runtime;
+﻿using System;
+using Android.Runtime;
 using Com.Google.Android.Exoplayer2.Metadata;
 
 namespace MediaManager.Platforms.Android.Player

@@ -1,4 +1,5 @@
-﻿using AVFoundation;
+﻿using System;
+using AVFoundation;
 using MediaManager.Platforms.Apple.Player;
 using MediaManager.Platforms.Ios.Video;
 using MediaManager.Player;
@@ -90,7 +91,7 @@ namespace MediaManager.Platforms.Ios.Player
             if (PlayerView == null)
                 return;
 
-            if (isFullWindow)
+            if(isFullWindow)
                 PlayerView.PlayerViewController.VideoGravity = AVLayerVideoGravity.ResizeAspectFill;
             else
                 PlayerView.PlayerViewController.VideoGravity = AVLayerVideoGravity.ResizeAspect;

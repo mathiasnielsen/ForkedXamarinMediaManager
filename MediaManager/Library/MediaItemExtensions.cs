@@ -1,4 +1,6 @@
-﻿namespace MediaManager.Library
+﻿using System.Collections.Generic;
+
+namespace MediaManager.Library
 {
     public static class MediaItemExtensions
     {

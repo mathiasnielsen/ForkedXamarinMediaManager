@@ -1,4 +1,6 @@
-﻿using MediaManager.Media;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using MediaManager.Media;
 
 namespace MediaManager.Platforms.Tizen.Media
 {

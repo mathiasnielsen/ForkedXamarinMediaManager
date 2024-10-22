@@ -1,4 +1,6 @@
-﻿namespace MediaManager.Library
+﻿using System;
+
+namespace MediaManager.Library
 {
     public class ContentItem : NotifyPropertyChangedBase, IContentItem
     {

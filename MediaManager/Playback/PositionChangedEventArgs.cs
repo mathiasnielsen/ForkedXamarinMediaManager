@@ -1,4 +1,6 @@
-﻿namespace MediaManager.Playback
+﻿using System;
+
+namespace MediaManager.Playback
 {
     public class PositionChangedEventArgs : EventArgs
     {

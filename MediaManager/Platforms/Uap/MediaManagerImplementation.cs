@@ -1,4 +1,5 @@
-﻿using MediaManager.Media;
+﻿using System;
+using MediaManager.Media;
 using MediaManager.Notifications;
 using MediaManager.Platforms.Uap.Media;
 using MediaManager.Platforms.Uap.Notifications;

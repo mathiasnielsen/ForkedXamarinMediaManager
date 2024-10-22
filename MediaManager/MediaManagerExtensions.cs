@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using MediaManager.Library;
 using MediaManager.Playback;
 using MediaManager.Player;

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediaManager;
 using MediaManager.Library;
 using MvvmCross.Commands;
+using MvvmCross.Logging;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
