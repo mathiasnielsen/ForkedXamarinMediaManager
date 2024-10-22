@@ -131,7 +131,10 @@ namespace MediaManager.Platforms.Android.MediaSession
 
             PlayerNotificationManager.SetFastForwardIncrementMs((long)MediaManager.StepSizeForward.TotalMilliseconds);
             PlayerNotificationManager.SetRewindIncrementMs((long)MediaManager.StepSizeBackward.TotalMilliseconds);
-            PlayerNotificationManager.SetNotificationListener(NotificationListener);
+
+            //TODO: not sure why this is broken? Maybe in the binding
+            //PlayerNotificationManager.SetNotificationListener(NotificationListener);
+
             PlayerNotificationManager.SetMediaSessionToken(SessionToken);
             //PlayerNotificationManager.SetOngoing(true);
             PlayerNotificationManager.SetUsePlayPauseActions(MediaManager.Notification.ShowPlayPauseControls);
