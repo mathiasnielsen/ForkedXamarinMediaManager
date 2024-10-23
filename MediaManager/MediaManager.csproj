@@ -85,6 +85,8 @@
     <None Remove="Platforms\Android\**\*.cs" />
     <Compile Include="Platforms\Android\**\*.cs" />
     <AndroidResource Include="Resources\**\*.xml" SubType="Designer" Generator="MSBuild:UpdateAndroidResources" />
+    <PackageReference Include="Xam.Plugins.Android.ExoPlayer" Version="2.18.10-xamarin1" />
+    <PackageReference Include="Xam.Plugins.Android.ExoPlayer.MediaSession" Version="2.18.10-xamarin1" />
     <!--<PackageReference Include="Xam.Plugins.Android.ExoPlayer.Cast" Version="2.11.8" />
     <PackageReference Include="Xam.Plugins.Android.ExoPlayer.Leanback" Version="2.11.8" />-->
   </ItemGroup>
@@ -104,8 +106,8 @@
       <SubType></SubType>
     </Compile>
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'monoandroid13.0'">
-    <PackageReference Include="Xam.Plugins.Android.ExoPlayer" Version="2.18.10-xamarin1" />
-    <PackageReference Include="Xam.Plugins.Android.ExoPlayer.MediaSession" Version="2.18.10-xamarin1" />
-  </ItemGroup>
+<!--  <ItemGroup Condition="'$(TargetFramework)' == 'monoandroid13.0'">-->
+<!--    <PackageReference Include="Xam.Plugins.Android.ExoPlayer" Version="2.18.10-xamarin1" />-->
+<!--    <PackageReference Include="Xam.Plugins.Android.ExoPlayer.MediaSession" Version="2.18.10-xamarin1" />-->
+<!--  </ItemGroup>-->
 </Project>

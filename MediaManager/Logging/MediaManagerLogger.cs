@@ -5,7 +5,7 @@ namespace MediaManager
 {
     public class MediaManagerLogger
     {
-        private const string LoggingPrefix = "MKN (v.1.0.3)";
+        private const string LoggingPrefix = "MKN (v.1.0.5)";
 
         private readonly string _owner;
 
