@@ -6,6 +6,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.Media;
 using Android.Support.V4.Media.Session;
+using AndroidX.Core.App;
 using AndroidX.Core.Content;
 using AndroidX.Media;
 using AndroidX.Media.Session;
@@ -104,12 +105,22 @@ namespace MediaManager.Platforms.Android.MediaSession
         protected virtual void PrepareNotificationManager()
         {
             MediaDescriptionAdapter = new MediaDescriptionAdapter();
-            PlayerNotificationManager = Com.Google.Android.Exoplayer2.UI.PlayerNotificationManager.CreateWithNotificationChannel(
+            // PlayerNotificationManager = Com.Google.Android.Exoplayer2.UI.PlayerNotificationManager.CreateWithNotificationChannel(
+            //     this,
+            //     ChannelId,
+            //     Resource.String.exo_download_notification_channel_name,
+            //     ForegroundNotificationId,
+            //     MediaDescriptionAdapter);
+
+            PlayerNotificationManager = new Com.Google.Android.Exoplayer2.UI.PlayerNotificationManager.Builder(
                 this,
-                ChannelId,
-                Resource.String.exo_download_notification_channel_name,
                 ForegroundNotificationId,
-                MediaDescriptionAdapter);
+                ChannelId)
+                // .SetChannelNameResourceId(Resource.String.XamarinMediaManagerName)
+                // .SetChannelDescriptionResourceId(Resource.String.XamarinMediaManagerDescription)
+                .SetMediaDescriptionAdapter(MediaDescriptionAdapter)
+                .SetNotificationListener(NotificationListener)
+                .Build();
 
             //Needed for enabling the notification as a mediabrowser.
             NotificationListener = new NotificationListener();
@@ -126,13 +137,23 @@ namespace MediaManager.Platforms.Android.MediaSession
                 if (ongoing && !IsForeground)
                 {
                     ContextCompat.StartForegroundService(ApplicationContext, new Intent(ApplicationContext, Java.Lang.Class.FromType(typeof(MediaBrowserService))));
-                    StartForeground(notificationId, notification);
+                    if (Build.VERSION.SdkInt >= BuildVersionCodes.S)
+                    {
+                        _logger.Info("Starting service in foreground (above 31)");
+                        StartForeground(notificationId, notification, ForegroundService.TypeMediaPlayback);
+                    }
+                    else
+                    {
+                        _logger.Info("Starting service in foreground");
+                        StartForeground(notificationId, notification);
+                    }
+
                     IsForeground = true;
                 }
             };
 
-            PlayerNotificationManager.SetFastForwardIncrementMs((long)MediaManager.StepSizeForward.TotalMilliseconds);
-            PlayerNotificationManager.SetRewindIncrementMs((long)MediaManager.StepSizeBackward.TotalMilliseconds);
+            // PlayerNotificationManager.SetFastForwardIncrementMs((long)MediaManager.StepSizeForward.TotalMilliseconds);
+            // PlayerNotificationManager.SetRewindIncrementMs((long)MediaManager.StepSizeBackward.TotalMilliseconds);
 
             //TODO: not sure why this is broken? Maybe in the binding
             //PlayerNotificationManager.SetNotificationListener(NotificationListener);
@@ -140,11 +161,15 @@ namespace MediaManager.Platforms.Android.MediaSession
             PlayerNotificationManager.SetMediaSessionToken(SessionToken);
             //PlayerNotificationManager.SetOngoing(true);
             PlayerNotificationManager.SetUsePlayPauseActions(MediaManager.Notification.ShowPlayPauseControls);
-            PlayerNotificationManager.SetUseNavigationActions(MediaManager.Notification.ShowNavigationControls);
+            // PlayerNotificationManager.SetUseNavigationActions(MediaManager.Notification.ShowNavigationControls);
             PlayerNotificationManager.SetSmallIcon(MediaManager.NotificationIconResource);
+            PlayerNotificationManager.SetPriority(NotificationCompat.PriorityLow);
 
             //Must be called to start the connection
-            (MediaManager.Notification as Notifications.NotificationManager).Player = MediaManager.Player;
+            if (MediaManager.Notification is Notifications.NotificationManager notificationManager)
+                notificationManager.Player = MediaManager.Player;
+
+            // (MediaManager.Notification as Notifications.NotificationManager).Player = MediaManager.Player;
             //PlayerNotificationManager.SetPlayer(MediaManager.AndroidMediaPlayer.Player);
         }
 
@@ -190,6 +215,7 @@ namespace MediaManager.Platforms.Android.MediaSession
             {
                 // Service is being killed, so make sure we release our resources
                 // PlayerNotificationManager.SetNotificationListener(null);
+
                 PlayerNotificationManager.SetPlayer(null);
                 PlayerNotificationManager.Dispose();
                 PlayerNotificationManager = null;

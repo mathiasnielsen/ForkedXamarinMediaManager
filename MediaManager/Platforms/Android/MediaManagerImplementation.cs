@@ -248,7 +248,17 @@ namespace MediaManager
         {
             _logger.Debug($"ANDROID PlayAsCurrent by EnsureInit and MediaController");
             await EnsureInit();
-            MediaController.GetTransportControls().Prepare();
+
+            try
+            {
+                _logger.Debug($"Prepare transport controls");
+                MediaController.GetTransportControls().Prepare();
+                _logger.Debug($"Did prepare transport controls");
+            }
+            catch (Exception ex)
+            {
+                _logger.Warning($"Error on Prepare transport controls: {ex}");
+            }
         }
 
         public override async Task Pause()

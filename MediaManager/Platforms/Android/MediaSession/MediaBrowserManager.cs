@@ -134,6 +134,7 @@ namespace MediaManager.Platforms.Android.MediaSession
                     }
                 };
 
+                _logger.Debug($"INSTANTIATE mediaBrowser");
                 MediaBrowser = new MediaBrowserCompat(Context.ApplicationContext,
                     new ComponentName(
                         Context.ApplicationContext,
