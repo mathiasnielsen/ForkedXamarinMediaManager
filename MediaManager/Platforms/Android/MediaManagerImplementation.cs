@@ -46,7 +46,10 @@ namespace MediaManager
             }
         }
 
-        private int _notificationIconResource = Resource.Drawable.exo_notification_small_icon;
+        /// <summary>
+        /// TODO: Make a better icon
+        /// </summary>
+        private int _notificationIconResource = Android.Resource.Drawable.BottomBar;
         public int NotificationIconResource
         {
             get => _notificationIconResource;
@@ -155,7 +158,7 @@ namespace MediaManager
             {
                 base.StepSizeForward = value;
                 var playerNotificationManager = (Notification as MediaManager.Platforms.Android.Notifications.NotificationManager)?.PlayerNotificationManager;
-                playerNotificationManager?.SetFastForwardIncrementMs((long)value.TotalMilliseconds);
+                // playerNotificationManager?.SetFastForwardIncrementMs((long)value.TotalMilliseconds);
             }
         }
 
@@ -166,7 +169,7 @@ namespace MediaManager
             {
                 base.StepSizeBackward = value;
                 var playerNotificationManager = (Notification as MediaManager.Platforms.Android.Notifications.NotificationManager)?.PlayerNotificationManager;
-                playerNotificationManager?.SetRewindIncrementMs((long)value.TotalMilliseconds);
+                // playerNotificationManager?.SetRewindIncrementMs((long)value.TotalMilliseconds);
             }
         }
         [Obsolete("Use StepSizeForward and StepSizeBackward properties instead.", true)]

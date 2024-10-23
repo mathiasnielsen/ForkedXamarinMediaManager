@@ -33,8 +33,8 @@ namespace MediaManager.Platforms.Android.Player
         protected MediaSessionCompat MediaSession => MediaManager.MediaSession;
 
         protected string UserAgent { get; set; }
-        protected DefaultHttpDataSourceFactory HttpDataSourceFactory { get; set; }
-        public IDataSource.IFactory DataSourceFactory { get; set; }
+        protected DefaultHttpDataSource.Factory HttpDataSourceFactory { get; set; }
+        public IDataSourceFactory DataSourceFactory { get; set; }
         public DefaultDashChunkSource.Factory DashChunkSourceFactory { get; set; }
         public DefaultSsChunkSource.Factory SsChunkSourceFactory { get; set; }
 
@@ -157,7 +157,7 @@ namespace MediaManager.Platforms.Android.Player
             else
                 UserAgent = Util.GetUserAgent(Context, Context.PackageName);
 
-            HttpDataSourceFactory = new DefaultHttpDataSourceFactory(UserAgent);
+            HttpDataSourceFactory = new DefaultHttpDataSource.Factory().SetUserAgent(UserAgent).SetAllowCrossProtocolRedirects(true);
             UpdateRequestHeaders();
 
             MediaSource = new ConcatenatingMediaSource();
@@ -180,18 +180,11 @@ namespace MediaManager.Platforms.Android.Player
 
             PlayerEventListener = new PlayerEventListener()
             {
-                OnPlayerErrorImpl = (ExoPlaybackException exception) =>
+                OnPlayerErrorImpl = (PlaybackException exception) =>
                 {
-                    switch (exception.Type)
-                    {
-                        case ExoPlaybackException.TypeRenderer:
-                        case ExoPlaybackException.TypeSource:
-                        case ExoPlaybackException.TypeUnexpected:
-                            break;
-                    }
                     MediaManager.OnMediaItemFailed(this, new MediaItemFailedEventArgs(MediaManager.Queue.Current, exception, exception.Message));
                 },
-                OnTracksChangedImpl = (trackGroups, trackSelections) =>
+                OnTracksChangedImpl = (tracks) =>
                 {
                     InvokeBeforePlaying(this, new MediaPlayerEventArgs(MediaManager.Queue.Current, this));
 
@@ -271,10 +264,7 @@ namespace MediaManager.Platforms.Android.Player
         {
             if (RequestHeaders?.Count > 0)
             {
-                foreach (var item in RequestHeaders)
-                {
-                    HttpDataSourceFactory?.DefaultRequestProperties.Set(item.Key, item.Value);
-                }
+                HttpDataSourceFactory?.SetDefaultRequestProperties(RequestHeaders);
             }
         }
 

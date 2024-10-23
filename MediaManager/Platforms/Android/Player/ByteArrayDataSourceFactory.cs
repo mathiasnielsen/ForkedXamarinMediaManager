@@ -2,7 +2,7 @@
 
 namespace MediaManager.Platforms.Android.Player
 {
-    public class ByteArrayDataSourceFactory : Java.Lang.Object, IDataSource.IFactory
+    public class ByteArrayDataSourceFactory : Java.Lang.Object, IDataSourceFactory
     {
         private readonly byte[] _data;
 

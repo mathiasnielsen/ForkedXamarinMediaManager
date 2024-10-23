@@ -10,6 +10,7 @@ using AndroidX.Core.App;
 using AndroidX.Core.Content;
 using AndroidX.Media;
 using AndroidX.Media.Session;
+using Com.Google.Android.Exoplayer2;
 using Com.Google.Android.Exoplayer2.UI;
 using MediaManager.Platforms.Android.Media;
 
@@ -50,6 +51,9 @@ namespace MediaManager.Platforms.Android.MediaSession
 
             try
             {
+                var exoPlayerVersion = typeof(ExoPlayer).Assembly.GetName().Version;
+                _logger.Info($"ExoPlayer version: {exoPlayerVersion}");
+
                 PrepareMediaSession();
                 PrepareNotificationManager();
             }
