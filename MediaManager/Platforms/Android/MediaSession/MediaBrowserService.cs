@@ -120,8 +120,8 @@ namespace MediaManager.Platforms.Android.MediaSession
                 this,
                 ForegroundNotificationId,
                 ChannelId)
-                // .SetChannelNameResourceId(Resource.String.XamarinMediaManagerName)
-                // .SetChannelDescriptionResourceId(Resource.String.XamarinMediaManagerDescription)
+                .SetChannelNameResourceId(Resource.String.exo_download_notification_channel_name)
+                .SetChannelDescriptionResourceId(Resource.String.exo_download_description)
                 .SetMediaDescriptionAdapter(MediaDescriptionAdapter)
                 .SetNotificationListener(NotificationListener)
                 .Build();

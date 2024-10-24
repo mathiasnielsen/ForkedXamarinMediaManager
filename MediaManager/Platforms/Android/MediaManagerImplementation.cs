@@ -49,7 +49,8 @@ namespace MediaManager
         /// <summary>
         /// TODO: Make a better icon
         /// </summary>
-        private int _notificationIconResource = Android.Resource.Drawable.BottomBar;
+        private int _notificationIconResource = Resource.Drawable.exo_notification_small_icon;
+
         public int NotificationIconResource
         {
             get => _notificationIconResource;
