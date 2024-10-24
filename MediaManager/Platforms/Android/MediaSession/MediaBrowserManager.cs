@@ -10,6 +10,8 @@ namespace MediaManager.Platforms.Android.MediaSession
 {
     public class MediaBrowserManager
     {
+        private readonly MediaManagerLogger _logger = new MediaManagerLogger(nameof(MediaBrowserManager));
+
         private TaskCompletionSource<bool> _tcs;
 
         protected MediaManagerImplementation MediaManager => CrossMediaManager.Android;
@@ -30,11 +32,19 @@ namespace MediaManager.Platforms.Android.MediaSession
 
         public async Task<bool> Init()
         {
+            _logger.Debug("INIT called");
             if (_tcs?.Task != null && !_tcs.Task.IsCompleted)
+            {
+                _logger.Debug("INIT wait for existing task to complete");
                 return await _tcs.Task;
+            }
             else if (IsConnected)
+            {
+                _logger.Debug("INIT is already connected");
                 return true;
+            }
 
+            _logger.Debug("INIT waiting for event");
             _tcs = new TaskCompletionSource<bool>();
 
             if (MediaBrowser == null)
@@ -106,12 +116,14 @@ namespace MediaManager.Platforms.Android.MediaSession
 
                         MediaBrowser.Subscribe(MediaBrowser.Root, MediaBrowserSubscriptionCallback);
 
+                        _logger.Debug($"INIT set result {nameof(MediaBrowserConnectionCallback.OnConnectedImpl)}");
                         IsConnected = true;
                         _tcs.SetResult(IsConnected);
                         _tcs = null;
                     },
                     OnConnectionFailedImpl = () =>
                     {
+                        _logger.Debug($"INIT set result {nameof(MediaBrowserConnectionCallback.OnConnectionFailedImpl)}");
                         IsConnected = false;
                         _tcs.SetResult(IsConnected);
                         _tcs = null;
@@ -122,6 +134,7 @@ namespace MediaManager.Platforms.Android.MediaSession
                     }
                 };
 
+                _logger.Debug($"INSTANTIATE mediaBrowser");
                 MediaBrowser = new MediaBrowserCompat(Context.ApplicationContext,
                     new ComponentName(
                         Context.ApplicationContext,

@@ -18,6 +18,8 @@ namespace MediaManager
 {
     public abstract class MediaManagerBase : NotifyPropertyChangedBase, IMediaManager
     {
+        private readonly MediaManagerLogger _logger = new MediaManagerLogger(nameof(MediaManagerBase));
+
         public MediaManagerBase()
         {
             InitTimer();
@@ -193,6 +195,7 @@ namespace MediaManager
 
         public virtual Task Play()
         {
+            _logger.Info("PLAY");
             return MediaPlayer.Play();
         }
 
@@ -220,10 +223,13 @@ namespace MediaManager
 
         public virtual async Task<IMediaItem> Play(string uri)
         {
+            _logger.Debug($"Start playing: {uri}");
             var mediaItem = await Extractor.CreateMediaItem(uri).ConfigureAwait(false);
             var mediaItemToPlay = await PrepareQueueForPlayback(mediaItem);
 
+            _logger.Debug($"Start PlayAsCurrent: {uri}");
             await PlayAsCurrent(mediaItemToPlay);
+            _logger.Debug($"Did PlayAsCurrent: {uri}");
             return mediaItem;
         }
 
@@ -306,7 +312,15 @@ namespace MediaManager
         public virtual async Task PlayAsCurrent(IMediaItem mediaItem)
         {
             if (AutoPlay)
+            {
+                _logger.Debug($"MediaPlayer start play - mediaUri:{mediaItem?.MediaUri}");
                 await MediaPlayer.Play(mediaItem);
+                _logger.Debug($"Should be playing - mediaUri:{mediaItem?.MediaUri}");
+            }
+            else
+            {
+                _logger.Debug($"Won't play, since {nameof(AutoPlay)} is false");
+            }
         }
 
         public virtual Task<IMediaItem> PrepareQueueForPlayback(IMediaItem mediaItem)

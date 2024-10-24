@@ -17,10 +17,10 @@ namespace MediaManager.Platforms.Android.Player
         {
         }
 
-        public bool OnCommand(IPlayer p0, IControlDispatcher p1, string p2, Bundle p3, ResultReceiver p4)
-        {
-            return false;
-        }
+        // public bool OnCommand(IPlayer p0, IControlDispatcher p1, string p2, Bundle p3, ResultReceiver p4)
+        // {
+        //     return false;
+        // }
 
         public void OnSetRating(IPlayer p0, RatingCompat p1)
         {
@@ -28,6 +28,11 @@ namespace MediaManager.Platforms.Android.Player
 
         public void OnSetRating(IPlayer p0, RatingCompat p1, Bundle p2)
         {
+        }
+
+        public bool OnCommand(IPlayer player, string command, Bundle extras, ResultReceiver cb)
+        {
+            return false;
         }
     }
 }

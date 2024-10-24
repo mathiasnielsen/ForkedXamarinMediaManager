@@ -28,6 +28,8 @@ namespace MediaManager
     [global::Android.Runtime.Preserve(AllMembers = true)]
     public class MediaManagerImplementation : MediaManagerBase, IMediaManager<SimpleExoPlayer>
     {
+        private readonly MediaManagerLogger _logger = new MediaManagerLogger(nameof(MediaManagerImplementation));
+
         public MediaManagerImplementation()
         {
             IsInitialized = false;
@@ -44,7 +46,11 @@ namespace MediaManager
             }
         }
 
+        /// <summary>
+        /// TODO: Make a better icon
+        /// </summary>
         private int _notificationIconResource = Resource.Drawable.exo_notification_small_icon;
+
         public int NotificationIconResource
         {
             get => _notificationIconResource;
@@ -113,16 +119,25 @@ namespace MediaManager
 
         public override void Init()
         {
+            _logger.Debug("INIT without await");
             EnsureInit();
             InitTimer();
         }
 
         public async Task EnsureInit()
         {
+            _logger.Debug("INIT started");
             IsInitialized = await MediaBrowserManager.Init();
 
             if (!IsInitialized)
+            {
+                _logger.Warning("INIT failed");
                 throw new Exception("Cannot Initialize MediaManager");
+            }
+            else
+            {
+                _logger.Debug("INIT finished");
+            }
         }
 
         private MediaBrowserManager _mediaBrowserManager;
@@ -144,7 +159,7 @@ namespace MediaManager
             {
                 base.StepSizeForward = value;
                 var playerNotificationManager = (Notification as MediaManager.Platforms.Android.Notifications.NotificationManager)?.PlayerNotificationManager;
-                playerNotificationManager?.SetFastForwardIncrementMs((long)value.TotalMilliseconds);
+                // playerNotificationManager?.SetFastForwardIncrementMs((long)value.TotalMilliseconds);
             }
         }
 
@@ -155,7 +170,7 @@ namespace MediaManager
             {
                 base.StepSizeBackward = value;
                 var playerNotificationManager = (Notification as MediaManager.Platforms.Android.Notifications.NotificationManager)?.PlayerNotificationManager;
-                playerNotificationManager?.SetRewindIncrementMs((long)value.TotalMilliseconds);
+                // playerNotificationManager?.SetRewindIncrementMs((long)value.TotalMilliseconds);
             }
         }
         [Obsolete("Use StepSizeForward and StepSizeBackward properties instead.", true)]
@@ -235,8 +250,19 @@ namespace MediaManager
 
         public override async Task PlayAsCurrent(IMediaItem mediaItem)
         {
+            _logger.Debug($"ANDROID PlayAsCurrent by EnsureInit and MediaController");
             await EnsureInit();
-            MediaController.GetTransportControls().Prepare();
+
+            try
+            {
+                _logger.Debug($"Prepare transport controls");
+                MediaController.GetTransportControls().Prepare();
+                _logger.Debug($"Did prepare transport controls");
+            }
+            catch (Exception ex)
+            {
+                _logger.Warning($"Error on Prepare transport controls: {ex}");
+            }
         }
 
         public override async Task Pause()
@@ -247,11 +273,17 @@ namespace MediaManager
 
         public override async Task Play()
         {
+            _logger.Debug("PLAY ensure init");
             await EnsureInit();
 
+            _logger.Debug("PLAY after init");
             if (this.IsStopped())
+            {
+                _logger.Debug("PLAY prepare if stopped");
                 MediaController.GetTransportControls().Prepare();
+            }
 
+            _logger.Debug("PLAY");
             MediaController.GetTransportControls().Play();
         }
 
